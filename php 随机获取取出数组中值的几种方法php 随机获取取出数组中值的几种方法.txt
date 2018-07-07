@@ -1,0 +1,69 @@
+php 随机获取/取出数组中值的几种方法
+
+php随机抽取/获取/取出一些元素这个功能实现方法很简单，只要使用array_rand与range就可以实现了，如果随便抽取一个元素就直接使用mt_rand,然后随机数长度不超过数组长度即可。
+下面我先给大家提供几种方法，供大家参考。
+
+
+方法-:
+
+<?php
+$arr = range(1,10,1);    
+$newarr = array_rand($arr,6);    //随机获取6个数组中的键    
+$newArr = array_flip($newarr);   //键与值互换   
+$arr3 = array_diff_key($arr,$newArr); //取键相同的    
+$arr1 = array_diff_key($arr,$arr3);  //取键相同的    
+print_r($arr1);
+?>
+结果: Array ( [0] => 1 [1] => 2 [2] => 3 [3] => 4 [5] => 6 [9] => 10 )
+
+ 
+
+方法二:
+
+$arr = range(1,10,1);   
+$newarr = array_rand($arr,6);    //随机获取6个数组中的键 
+$ArrNew = array(); 
+foreach($newarr as $k=>$v) 
+{  
+   $ArrNew[$v] = $arr[$v];     
+}   
+print_r($ArrNew);
+结果:Array ( [1] => 2 [2] => 3 [3] => 4 [4] => 5 [6] => 7 [7] => 8 )
+
+ 
+
+方法三:这种方法没有保留键名，供大家参考一下.
+
+<?php
+$arr = range(1,10,1);   
+shuffle($arr);   //打乱数组  
+$newarr = array_splice($arr,0,6);  
+print_r($newarr);
+?>
+结果:Array ( [0] => 7 [1] => 4 [2] => 2 [3] => 10 [4] => 9 [5] => 6 )
+
+原文地址：http://www.manongjc.com/article/832.html
+
+上一篇：php生成多个不重复随机数的几种方法
+
+下一篇：php从数组中随机取出若干个值
+
+这些笔记可能对你有用
+2016-05-19
+MySQL的随机数函数rand()的使用技巧
+2016-05-19
+mysql 使用RAND()函数生成随机数实例讲解
+2016-05-19
+mysql RAND()函数使用方法和实例
+2016-05-16
+php从一个数组中随机的取出若干个不同的数
+2016-05-16
+php 数组生成随机数函数shuffle()和array_rand()
+2016-05-16
+php从数组中随机取出若干个值
+2016-05-16
+php生成多个不重复随机数的几种方法
+2016-01-27
+JavaScript 获取指定范围内的随机数
+2016-01-27
+javascript 获取m到n之间的随机随机数
