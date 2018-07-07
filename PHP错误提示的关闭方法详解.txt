@@ -1,0 +1,78 @@
+PHP错误提示的关闭方法详解
+
+关闭PHP错误脚本提示是程序上线了必须做
+
+的一件事情，就是不管程序怎么报错我们都
+
+不能让错误日志在服务器上给大家看到，下
+
+面我来总结两种关闭PHP错误脚本提示的具
+
+体方法
+
+最简单的办法就是直接在php程序代码中加
+
+入下面代码：
+
+复制代码 代码如下:
+
+error_reporting(E_ALL^E_NOTICE^E_WARNING);
+
+可以关闭所有notice 和 warning 级别的错误。
+
+把这个语句放在您脚本的功用包含文件
+
+中，通常为config.php 或者conn.php 中就
+
+可以控制输出了。
+
+当然我也也可以在php.ini中进行设置了方法
+
+如下
+
+打开PHP安装目录下的php.ini文件
+
+找到display_errors = On 修改为 display_errors = off
+注意:如果你已经把PHP.ini文件复制到windows目录下,那么必须同时把c:windows/php.ini里的display_errors = On 修改为display_errors = off
+PHP .ini中display_errors = Off失效的解决
+问题：
+PHP 设置文件php .ini中明明已经设置display_errors = Off，但是在运行过程中，网页上还是会出现错误信息。
+解决：
+打开PHP安装目录下的php.ini文件
+找到log_errors = off 修改为 log_errors = on
+找到error_log = filename 修改为 error_log="D:PHPerrlogphp_error.log" (这里的目录和文件名D:PHPerrlogphp_error.log随便你取什么)
+注意:如果你已经把PHP.ini文件复制到windows目录下,那么必须同时把c:windows/php.ini文件.
+此外php_error.log至少要有USER的修改和写权限,否则无法输出错误日志.
+经常见到error_reporting（7）直意为：设定错误讯息回报的等级。
+value constant
+1 E_ERROR
+2 E_WARNING
+4 E_PARSE
+8 E_NOTICE
+16 E_CORE_ERROR
+32 E_CORE_WARNING
+64 E_COMPILE_ERROR
+128 E_COMPILE_WARNING
+256 E_USER_ERROR
+512 E_USER_WARNING
+1024 E_USER_NOTICE
+2047 E_ALL
+2048 E_STRICT
+然而7=1+2+4
+就是出错时显示1 E_ERROR 2 E_WARNING 4 E_PARSE
+复制代码 代码如下:
+
+
+<?php
+
+//禁用错误报告
+
+error_reporting(0);
+
+//报告运行时错误
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
+//报告所有错误
+error_reporting(E_ALL);
+
+?>
