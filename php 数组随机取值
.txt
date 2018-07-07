@@ -1,0 +1,134 @@
+php 数组随机取值
+array_rand() 在你想从数组中取出一个或多个随机的单元时相当有用。它接受 input 作为输入数组和一个可选的参数 num_req，指明了你想取出多少个单元 － 如果没有指定，默认为 1。
+
+array_rand -- 从数组中随机取出一个或多个单元
+
+1
+mixed array_rand ( array input [, int num_req])
+array_rand() 在你想从数组中取出一个或多个随机的单元时相当有用。它接受 input 作为输入数组和一个可选的参数 num_req，指明了你想取出多少个单元 － 如果没有指定，默认为 1。
+
+如果你只取出一个，array_rand() 返回一个随机单元的键名，否则就返回一个包含随机键名的数组。这样你就可以随机从数组中取出键名和值。
+
+不要忘记调用 srand() 来撒下随机数发生器的种子。
+
+例子 1. array_rand() 例子
+
+1
+2
+3
+4
+5
+srand ((float) microtime() * 10000000);
+$input = array ("Neo", "Morpheus", "Trinity", "Cypher", "Tank");
+$rand_keys = array_rand ($input, 2);
+print $input[$rand_keys[0]]."\n";
+print $input[$rand_keys[1]]."\n";
+我们曾经访问过这样的网站，每次刷新banner都随机的变化，在这篇文章中，我们将给大家介绍用PHP来实现这个功能。
+
+步骤
+
+程序实现的原理是：调用一个数组，每个图象对应一个数组中的元素，然后我们设置随机数，只要随机得到一个数据就可以显示一副图象了。
+
+第一个步是我们来产生一个随机数。每次刷新时我们都得到不同的随机数，具体代码为：
+
+1
+srand((float) microtime() * 10000000);
+之后我们设置一个数组为image，然后再设置５个数组元素，代码如下：
+
+1
+2
+3
+4
+5
+$image[1]='/location/of/image1.jpg';
+$image[2]='/location/of/image2.jpg';
+$image[3]='/location/of/image3.jpg';
+$image[4]='/location/of/image4.jpg';
+$image[5]='/location/of/image5.jpg';
+下面的代码实现的功能是从数组中随机选择一个元素：
+
+1
+$rn = array_rand($image);
+然后我们来显示一个随机的图片：
+
+1
+echo '<img src="'.$image[$rn].'">';
+把上面的代码组合起来就可以了。
+
+1
+2
+3
+4
+5
+6
+7
+8
+srand((float) microtime() * 10000000);
+$image[1]='/location/of/image1.jpg';
+$image[2]='/location/of/image2.jpg';
+$image[3]='/location/of/image3.jpg';
+$image[4]='/location/of/image4.jpg';
+$image[5]='/location/of/image5.jpg';
+$rn = array_rand($image);
+echo '<img src="'.$image[$rn].'">';
+以上的代码是我们随机显示图片的代码，如果我们想使每个图片再加上各自的连接地址那么我们把上述的代码稍微改动下就可以了！把上述的数组改为二维数组：
+
+1
+2
+$image[1]['pic']='/location/of/image1.jpg';
+$image[1]['link']='/location/of/link1.php';
+相应的显示代码为：
+
+1
+2
+echo '<a href="'.$image[$rn]['link'].'">';
+echo '<img src="'.$image[$rn]['pic'].'">';
+那么我们就可以完成我们标题的功能了，随机显示图片并且连接到不同的指定的地址：
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+srand((float) microtime() * 10000000);
+$image[1]['pic']='/location/of/image1.jpg';
+$image[1]['link']='/location/of/link1.php';
+$image[2]['pic']='/location/of/image2.jpg';
+$image[2]['link']='/location/of/link2.php';
+$image[3]['pic']='/location/of/image3.jpg';
+$image[3]['link']='/location/of/link3.php';
+$image[4]['pic']='/location/of/image4.jpg';
+$image[4]['link']='/location/of/link4.php';
+$image[5]['pic']='/location/of/image5.jpg';
+$image[5]['link']='/location/of/link5.php';
+$rn = array_rand($image);
+echo '<a href="'.$image[$rn]['link'].'">';
+echo '<img src="'.$image[$rn]['pic'].'">';
+你可以把上面的代码拷到你的网页中去运行了。祝你好运
+
+原文地址：http://www.manongjc.com/article/833.html
+
+相关阅读：
+
+php从一个数组中随机的取出若干个不同的数
+
+php 数组生成随机数函数shuffle()和array_rand()
+
+php从数组中随机取出若干个值
+
+php 随机获取/取出数组中值的几种方法
+
+php生成多个不重复随机数的几种方法
+
+JavaScript 获取指定范围内的随机数
+
+javascript 获取m到n之间的随机随机数
